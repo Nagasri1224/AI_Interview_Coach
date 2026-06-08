@@ -10,3 +10,6 @@ reports/*.pdf
 reports/*.json
 
 answer.wav
+node_modules/
+venv/
+__pycache__/

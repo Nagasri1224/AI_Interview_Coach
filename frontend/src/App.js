@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState,useRef } from "react";
+import { useState } from "react";
 import Webcam from "react-webcam";
 function App() {
 

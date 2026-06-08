@@ -1,9 +1,10 @@
 import cv2
 import mediapipe as mp
-
+STOP_CAMERA = False
 
 def get_live_camera_scores():
-
+    global STOP_CAMERA
+    STOP_CAMERA = False
     mp_face_mesh = mp.solutions.face_mesh
 
     cap = cv2.VideoCapture(0)
@@ -19,7 +20,7 @@ def get_live_camera_scores():
 
     attentive_frames = 0
 
-    while True:
+    while not STOP_CAMERA:
 
         success, frame = cap.read()
 
@@ -133,6 +134,11 @@ def get_live_camera_scores():
             "Live Camera Analysis",
             frame
         )
+        cv2.setWindowProperty(
+            "Live Camera Analysis",
+            cv2.WND_PROP_TOPMOST,
+            1
+        )
 
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
@@ -162,6 +168,11 @@ def get_live_camera_scores():
     )
 
     return eye_score, attention_score
+def stop_camera():
+    
+    global STOP_CAMERA
+
+    STOP_CAMERA = True
 
 
 if __name__ == "__main__":

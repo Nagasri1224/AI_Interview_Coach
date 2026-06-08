@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-
+import Webcam from "react-webcam";
 function App() {
 
 const [file, setFile] = useState(null);
@@ -10,7 +10,9 @@ const [interviewStarted, setInterviewStarted] = useState(false);
 const [loading, setLoading] = useState(false);
 
 const [transcript, setTranscript] = useState("");
+const [recognition, setRecognition] = useState(null);
 
+const webcamRef = useRef(null);
 
 
 
@@ -40,6 +42,7 @@ const [finalFeedback,
 const [screen,
   setScreen] =
   useState("upload");
+
 const uploadResume = async () => {
 
 try {
@@ -69,7 +72,7 @@ try {
   const data = await response.json();
   
   setQuestions(data.questions);
-  setScreen("interview");
+  
 
   setLoading(false);
 
@@ -317,43 +320,40 @@ const downloadReport = async () => {
 };
 
 const startInterview = async () => {
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
 
-  try {
-
-    const response =
-      await fetch(
-        "http://127.0.0.1:8000/camera-analysis"
-      );
-
-    const data =
-      await response.json();
-
-    const answerText=data.answer;
-    setTranscript(answerText);
-    window.currentAnswer=answerText;
-    console.log(
-      "Transcript received:",
-      data.answer
-    );
-
-    setEyeContactScore(
-      data.eye_score
-    );
-
-    setAttentionScore(
-      data.attention_score
-    );
-
-    
-
-  } catch (error) {
-
-    console.log(error);
-
+  if (!SpeechRecognition) {
     alert(
-      "Interview Failed"
+      "Speech Recognition not supported"
     );
+    return;
   }
+  const recognitionInstance = new SpeechRecognition();
+  recognitionInstance.continuous = true;
+  recognitionInstance.interimResults = true;
+  recognitionInstance.lang = "en-US";
+  setRecognition(recognitionInstance);
+  recognitionInstance.onresult = (event) => {
+
+    let interimTranscript = "";
+    
+    for ( let i=0;
+      i < event.results.length;
+      i++
+    ) {
+      finalTranscript +=
+        event.results[i][0]
+          .transcript+" ";
+    }
+    setTranscript(finalTranscript);
+  };
+  recognitionInstance.start();
+  alert(
+    "Camera and Voice Started"
+  );
+  
 };
 const completeQuestion =
 async () => {
@@ -413,8 +413,12 @@ async () => {
 };
 const endInterview =
 async () => {
+  if (recognition) {
+    recognition.stop();
+  }
+  
   await fetch(
-    "http://127.0.1:8000/stop-interview"
+    "http://127.0.0.1:8000/stop-interview"
   );
 
   const allData = await completeQuestion();
@@ -474,14 +478,16 @@ async () => {
   setScreen("results");
 };
 const nextQuestion = () => {
-
+  if(recognition) {
+    recognition.stop();
+  }
   
 
   if (
     currentQuestion <
     questions.length - 1
   ) {
-
+    setTranscript("");
     setCurrentQuestion(
       currentQuestion + 1
     );
@@ -511,12 +517,7 @@ return (
   <h1 className="title">
     AI Interview Coach
   </h1>
-  {
-    screen === "upload" && (
-
-      <>  </>
-    )
-  }
+  
   <input
     type="file"
     accept=".pdf"
@@ -570,9 +571,10 @@ return (
 
       <button
       className="start-button"
-        onClick={() =>
-          setInterviewStarted(true)
-        }
+        onClick={() => {
+          setInterviewStarted(true);
+          setScreen("interview");
+        }}
       >
         Start Interview
       </button>
@@ -598,6 +600,13 @@ return (
           {" / "}
           {questions.length}
         </h2>
+        <div className="webcam-container">
+          <Webcam
+          audio={false}
+          screenshotFormat="image/jpeg"
+          className="webcam"
+          />
+        </div>
 
         <p
           style={{

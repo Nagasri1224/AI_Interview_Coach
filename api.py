@@ -325,6 +325,9 @@ def camera_analysis():
     answer, eye_score, attention_score = (
         run_question()
     )
+    print("Answer:", answer)
+    print("Eye Score:", eye_score)
+    print("Attention Score:", attention_score)
 
     return {
 

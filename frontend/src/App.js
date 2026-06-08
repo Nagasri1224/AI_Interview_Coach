@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect,useRef } from "react";
+import { useState,useRef } from "react";
 import Webcam from "react-webcam";
 function App() {
 
@@ -12,7 +12,7 @@ const [loading, setLoading] = useState(false);
 const [transcript, setTranscript] = useState("");
 const [recognition, setRecognition] = useState(null);
 
-const webcamRef = useRef(null);
+
 
 
 
@@ -337,7 +337,7 @@ const startInterview = async () => {
   setRecognition(recognitionInstance);
   recognitionInstance.onresult = (event) => {
     let finalTranscript = "";
-    let interimTranscript = "";
+    
     
     for ( let i=0;
       i < event.results.length;

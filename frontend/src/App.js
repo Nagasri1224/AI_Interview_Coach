@@ -329,12 +329,7 @@ const downloadReport = async () => {
 };
 
 const startInterview = async () => {
-  const cameraResponse = await fetch(
-    "https://ai-interview-coach-aq1p.onrender.com/camera-analysis"
-  );
-  const cameraData = await cameraResponse.json();
-  setEyeContactScore(cameraData.eye_contact_score);
-  setAttentionScore(cameraData.attention_score);
+  
   const SpeechRecognition =
     window.SpeechRecognition ||
     window.webkitSpeechRecognition;

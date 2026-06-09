@@ -412,7 +412,9 @@ async () => {
       eyeContactScore,
 
     attention_score:
-      attentionScore
+      attentionScore,
+    filler_count:
+      fillerCount
   };
   console.log(
     "Saving Question:",
@@ -754,6 +756,9 @@ return (
                       </p>
                       <p>
                         <b>Attention:</b> {item.attention_score}
+                      </p>
+                      <p>
+                        <b>Filler Count:</b> {item.filler_count}
                       </p>
                     </div>
                   )

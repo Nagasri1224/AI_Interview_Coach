@@ -334,6 +334,11 @@ const startInterview = async () => {
   recognitionInstance.continuous = true;
   recognitionInstance.interimResults = true;
   recognitionInstance.lang = "en-US";
+
+  recognitionInstance.onend = () => {
+    console.log("Speech recognition ended, restarting...");
+    recognitionInstance.start();
+  };
   setRecognition(recognitionInstance);
   recognitionInstance.onresult = (event) => {
     let finalTranscript = "";
@@ -518,7 +523,7 @@ return (
     AI Interview Coach
   </h1>
   
-  <input
+  <input  
     type="file"
     accept=".pdf"
     onChange={(e) =>

@@ -5,7 +5,7 @@ def get_speech_text():
     print("\nListening...")
 
     audio = sd.rec(
-        int(10 * fs),
+        int(60 * fs),
         samplerate=fs,
         channels=1,
         dtype="int16"

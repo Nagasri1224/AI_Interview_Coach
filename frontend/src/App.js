@@ -169,12 +169,7 @@ try {
   setReadinessScore(
     data.readiness_score
   );
-  setEyeContactScore(
-    data.eye_contact_score
-  );
-  setAttentionScore(
-    data.attention_score
-  );
+  
 
   setStatus(
     data.status
@@ -250,11 +245,7 @@ const downloadReport = async () => {
       filler_penalty:
       fillerCount,
 
-      eye_contact_score:
-      eyeContactScore,
       
-      attention_score:
-      attentionScore,
 
       questions:
       interviewData

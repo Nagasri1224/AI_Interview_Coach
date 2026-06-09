@@ -337,8 +337,20 @@ const startInterview = async () => {
 
   recognitionInstance.onend = () => {
     console.log("Speech recognition ended, restarting...");
+    setTimeout(() => {
     recognitionInstance.start();
-  };
+  },1000);
+};
+recognitionInstance.onerror = (event) => {
+  console.log(
+    "Speech recognition error:", event.error
+  );
+  if (event.error === "no-speech"||event.error === "audio-capture"||event.error === "network") {
+   setTimeout(() => {
+    recognitionInstance.start();
+  },1000);
+  }
+};
   setRecognition(recognitionInstance);
   recognitionInstance.onresult = (event) => {
     let finalTranscript = "";

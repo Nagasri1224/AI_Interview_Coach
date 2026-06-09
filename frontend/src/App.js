@@ -419,11 +419,6 @@ async () => {
     final_score:
       score,
 
-    eye_contact_score:
-      analysis.eye_contact_score,
-
-    attention_score:
-      analysis.attention_score,
     filler_count:
       analysis.filler_count,
   };
@@ -529,9 +524,6 @@ const nextQuestion = () => {
 
     setTranscript("");
    
-
-    setEyeContactScore(0);
-    setAttentionScore(0);
 
     setFillerCount(0);
 
@@ -764,12 +756,7 @@ return (
                       <p>
                         <b>Readiness:</b> {item.readiness_score}
                       </p>
-                      <p>
-                        <b>Eye Contact:</b> {item.eye_contact_score}
-                      </p>
-                      <p>
-                        <b>Attention:</b> {item.attention_score}
-                      </p>
+                      
                       <p>
                         <b>Filler Count:</b> {item.filler_count}
                       </p>

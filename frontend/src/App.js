@@ -347,11 +347,7 @@ recognitionInstance.onerror = (event) => {
   }
 };
   setRecognition(recognitionInstance);
-  window.cameraInterval = setInterval(async () => {
-    try {
-      const response = await fetch(
-        "https://ai-interview-coach-aq1p.onrender.com/camera-analysis"
-      );
+  
       
   recognitionInstance.onresult = (event) => {
     let finalTranscript = "";

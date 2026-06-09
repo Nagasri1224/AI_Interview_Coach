@@ -62,7 +62,7 @@ try {
   );
 
   const response = await fetch(
-    "http://127.0.0.1:8000/upload-resume",
+    "https://ai-interview-coach-aq1p.onrender.com/upload-resume",
     {
       method: "POST",
       body: formData
@@ -94,7 +94,7 @@ const generateFeedback = async () => {
 try {
 
   const response = await fetch(
-    "http://127.0.0.1:8000/feedback",
+    "https://ai-interview-coach-aq1p.onrender.com/feedback",
     {
       method: "POST",
 
@@ -136,7 +136,7 @@ const analyzeAnswer = async () => {
 try {
 
   const response = await fetch(
-    "http://127.0.0.1:8000/analyze-answer",
+    "https://ai-interview-coach-aq1p.onrender.com/analyze-answer",
     {
       method: "POST",
 
@@ -187,7 +187,7 @@ const getFinalScore = async () => {
 
     const response =
       await fetch(
-        "http://127.0.0.1:8000/final-score",
+        "https://ai-interview-coach-aq1p.onrender.com/final-score",
         {
           method: "POST",
 
@@ -258,7 +258,7 @@ const downloadReport = async () => {
 
     const response =
       await fetch(
-        "http://127.0.0.1:8000/generate-report",
+        "https://ai-interview-coach-aq1p.onrender.com/generate-report",
         {
           method: "POST",
 
@@ -418,7 +418,7 @@ async () => {
   }
   
   await fetch(
-    "http://127.0.0.1:8000/stop-interview"
+    "https://ai-interview-coach-aq1p.onrender.com/stop-interview"
   );
 
   const allData = await completeQuestion();

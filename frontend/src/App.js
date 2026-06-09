@@ -22,13 +22,7 @@ const [readinessScore, setReadinessScore] = useState(0);
 const [status, setStatus] = useState("");
 const [finalScore,setFinalScore] =useState(0);
 
-const [eyeContactScore,
-  setEyeContactScore] =
-  useState(0);
 
-const [attentionScore,
-  setAttentionScore] =
-  useState(0);
 const [interviewData,
   setInterviewData] =
   useState([]);
@@ -70,8 +64,8 @@ try {
   );
 
   const data = await response.json();
-  setEyeContactScore(data.eye_contact_score);
-  setAttentionScore(data.attention_score);
+ 
+  
   setFillerCount(data.filler_count);
   
   setQuestions(data.questions);
@@ -358,14 +352,7 @@ recognitionInstance.onerror = (event) => {
       const response = await fetch(
         "https://ai-interview-coach-aq1p.onrender.com/camera-analysis"
       );
-      const data = await response.json();
-      console.log("Camera Analysis:", data);
-      setEyeContactScore(data.eye_contact_score);
-      setAttentionScore(data.attention_score);
-    } catch (error) {
-      console.log( error);
-    }},3000);
-    
+      
   recognitionInstance.onresult = (event) => {
     let finalTranscript = "";
     

@@ -374,7 +374,7 @@ recognitionInstance.onerror = (event) => {
     } catch (error) {
       console.log( error);
     }},3000);
-    }
+    
   recognitionInstance.onresult = (event) => {
     let finalTranscript = "";
     

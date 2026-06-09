@@ -169,6 +169,12 @@ try {
   setReadinessScore(
     data.readiness_score
   );
+  setEyeContactScore(
+    data.eye_contact_score
+  );
+  setAttentionScore(
+    data.attention_score
+  );
 
   setStatus(
     data.status
@@ -409,12 +415,12 @@ async () => {
       score,
 
     eye_contact_score:
-      eyeContactScore,
+      analysis.eye_contact_score,
 
     attention_score:
-      attentionScore,
+      analysis.attention_score,
     filler_count:
-      fillerCount
+      analysis.filler_count,
   };
   console.log(
     "Saving Question:",

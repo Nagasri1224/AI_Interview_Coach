@@ -70,6 +70,9 @@ try {
   );
 
   const data = await response.json();
+  setEyeContactScore(data.eye_contact_score);
+  setAttentionScore(data.attention_score);
+  setFillerCount(data.filler_count);
   
   setQuestions(data.questions);
   

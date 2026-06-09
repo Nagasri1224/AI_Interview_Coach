@@ -329,6 +329,12 @@ const downloadReport = async () => {
 };
 
 const startInterview = async () => {
+  const cameraResponse = await fetch(
+    "https://ai-interview-coach-aq1p.onrender.com/camera-analysis"
+  );
+  const cameraData = await cameraResponse.json();
+  setEyeContactScore(cameraData.eye_contact_score);
+  setAttentionScore(cameraData.attention_score);
   const SpeechRecognition =
     window.SpeechRecognition ||
     window.webkitSpeechRecognition;
@@ -361,6 +367,19 @@ recognitionInstance.onerror = (event) => {
   }
 };
   setRecognition(recognitionInstance);
+  window.cameraInterval = setInterval(async () => {
+    try {
+      const response = await fetch(
+        "https://ai-interview-coach-aq1p.onrender.com/camera-analysis"
+      );
+      const data = await response.json();
+      console.log("Camera Analysis:", data);
+      setEyeContactScore(data.eye_contact_score);
+      setAttentionScore(data.attention_score);
+    } catch (error) {
+      console.log( error);
+    }},3000);
+    }
   recognitionInstance.onresult = (event) => {
     let finalTranscript = "";
     
@@ -444,7 +463,9 @@ async () => {
   if (recognition) {
     recognition.stop();
   }
-  
+  if (window.cameraInterval) {
+    clearInterval(window.cameraInterval);
+  }
   await fetch(
     "https://ai-interview-coach-aq1p.onrender.com/stop-interview"
   );

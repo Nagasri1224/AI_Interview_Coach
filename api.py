@@ -6,8 +6,7 @@ from pydantic import BaseModel
 from interview_engine import run_question
 from gemini_feedback import get_feedback
 from pdf_report import create_pdf
-from camera_live import stop_camera
-from speech_to_text import stop_speech
+
 from fastapi.responses import FileResponse
 import os
 import glob
@@ -15,7 +14,15 @@ import glob
 
 from filler_detector import analyze_fillers
 from readiness import calculate_readiness
+try:
+    from camera_live import stop_camera
+    from speech_to_text import stop_speech
+except:
+    def stop_camera():
+        pass
 
+    def stop_speech():
+        pass
 app = FastAPI()
 class AnalysisRequest(BaseModel):
     transcript: str
